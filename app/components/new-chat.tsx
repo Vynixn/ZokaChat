@@ -6,7 +6,6 @@ import styles from "./new-chat.module.scss";
 
 import LeftIcon from "../icons/left.svg";
 import LightningIcon from "../icons/lightning.svg";
-import EyeIcon from "../icons/eye.svg";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { Mask, useMaskStore } from "../store/mask";
@@ -151,13 +150,13 @@ export function NewChat() {
       <div className={styles["sub-title"]}>{Locale.NewChat.SubTitle}</div>
 
       <div className={styles["actions"]}>
-        <IconButton
+        {/* <IconButton
           text={Locale.NewChat.More}
           onClick={() => navigate(Path.Masks)}
           icon={<EyeIcon />}
           bordered
           shadow
-        />
+        /> */}
 
         <IconButton
           text={Locale.NewChat.Skip}
