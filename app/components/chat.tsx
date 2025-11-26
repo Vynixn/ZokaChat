@@ -525,7 +525,13 @@ export function ChatActions(props: {
     session.mask.modelConfig?.providerName || ServiceProvider.OpenAI;
   const allModels = useAllModels();
   const models = useMemo(() => {
-    const filteredModels = allModels.filter((m) => m.available);
+    const filteredModels = allModels.filter(
+      (m) =>
+        m.available &&
+        m.displayName.includes("deepseek") &&
+        !m.displayName.includes("-ai/DeepSeek") &&
+        !m?.provider?.providerName.includes("302.AI"),
+    );
     const defaultModel = filteredModels.find((m) => m.isDefault);
 
     if (defaultModel) {
@@ -544,8 +550,7 @@ export function ChatActions(props: {
         m.name == currentModel &&
         m?.provider?.providerName == currentProviderName,
     );
-    // return model?.displayName ?? "";
-    return "deepseek-chat (DeepSeek)";
+    return model?.displayName ?? "";
   }, [models, currentModel, currentProviderName]);
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [showPluginSelector, setShowPluginSelector] = useState(false);
@@ -678,47 +683,14 @@ export function ChatActions(props: {
         {showModelSelector && (
           <Selector
             defaultSelectedValue={`${currentModel}@${currentProviderName}`}
-            items={models
-              .filter(
-                (k) =>
-                  // (k?.provider?.providerName.includes("OpenAI") &&
-                  //   ![
-                  //     "o1-mini",
-                  //     "o1-preview",
-                  //     "o3",
-                  //     "o3-mini",
-                  //     "o4-mini",
-                  //     "dall-e-3",
-                  //     "gpt-4.1",
-                  //     "gpt-4.1-2025-04014",
-                  //     "gpt-4.1-mini",
-                  //     "gpt-4.1-mini-2025-04-14",
-                  //     "gpt-4.1-nano",
-                  //     "gpt-4.1-nano-2025-04-14",
-                  //     "gpt-4.1-2025-04-14",
-                  //     "gpt-5-chat",
-                  //     "gpt-5-mini",
-                  //     "gpt-5-nano",
-                  //     "gpt-5",
-                  //     "gpt-5-chat-2025-01-01-preview",
-                  //     "gpt-3.5-turbo",
-                  //     "gpt-3.5-turbo-1106",
-                  //     "gpt-3.5-turbo-0125",
-                  //     "gpt-4.5-preview",
-                  //     "gpt-4.5-preview-2025-02-27",
-                  //   ].includes(k?.displayName)) ||
-                  k.displayName.includes("deepseek") &&
-                  !k.displayName.includes("-ai/DeepSeek") &&
-                  !k?.provider?.providerName.includes("302.AI"),
-              )
-              .map((m) => ({
-                title: `${m.displayName}${
-                  m?.provider?.providerName
-                    ? " (" + m?.provider?.providerName + ")"
-                    : ""
-                }`,
-                value: `${m.name}@${m?.provider?.providerName}`,
-              }))}
+            items={models.map((m) => ({
+              title: `${m.displayName}${
+                m?.provider?.providerName
+                  ? " (" + m?.provider?.providerName + ")"
+                  : ""
+              }`,
+              value: `${m.name}@${m?.provider?.providerName}`,
+            }))}
             onClose={() => setShowModelSelector(false)}
             onSelection={(s) => {
               if (s.length === 0) return;
