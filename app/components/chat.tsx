@@ -680,35 +680,35 @@ export function ChatActions(props: {
             items={models
               .filter(
                 (k) =>
-                  (k?.provider?.providerName.includes("OpenAI") &&
-                    ![
-                      "o1-mini",
-                      "o1-preview",
-                      "o3",
-                      "o3-mini",
-                      "o4-mini",
-                      "dall-e-3",
-                      "gpt-4.1",
-                      "gpt-4.1-2025-04014",
-                      "gpt-4.1-mini",
-                      "gpt-4.1-mini-2025-04-14",
-                      "gpt-4.1-nano",
-                      "gpt-4.1-nano-2025-04-14",
-                      "gpt-4.1-2025-04-14",
-                      "gpt-5-chat",
-                      "gpt-5-mini",
-                      "gpt-5-nano",
-                      "gpt-5",
-                      "gpt-5-chat-2025-01-01-preview",
-                      "gpt-3.5-turbo",
-                      "gpt-3.5-turbo-1106",
-                      "gpt-3.5-turbo-0125",
-                      "gpt-4.5-preview",
-                      "gpt-4.5-preview-2025-02-27",
-                    ].includes(k?.displayName)) ||
-                  (k.displayName.includes("deepseek") &&
-                    !k.displayName.includes("-ai/DeepSeek") &&
-                    !k?.provider?.providerName.includes("302.AI")),
+                  // (k?.provider?.providerName.includes("OpenAI") &&
+                  //   ![
+                  //     "o1-mini",
+                  //     "o1-preview",
+                  //     "o3",
+                  //     "o3-mini",
+                  //     "o4-mini",
+                  //     "dall-e-3",
+                  //     "gpt-4.1",
+                  //     "gpt-4.1-2025-04014",
+                  //     "gpt-4.1-mini",
+                  //     "gpt-4.1-mini-2025-04-14",
+                  //     "gpt-4.1-nano",
+                  //     "gpt-4.1-nano-2025-04-14",
+                  //     "gpt-4.1-2025-04-14",
+                  //     "gpt-5-chat",
+                  //     "gpt-5-mini",
+                  //     "gpt-5-nano",
+                  //     "gpt-5",
+                  //     "gpt-5-chat-2025-01-01-preview",
+                  //     "gpt-3.5-turbo",
+                  //     "gpt-3.5-turbo-1106",
+                  //     "gpt-3.5-turbo-0125",
+                  //     "gpt-4.5-preview",
+                  //     "gpt-4.5-preview-2025-02-27",
+                  //   ].includes(k?.displayName)) ||
+                  k.displayName.includes("deepseek") &&
+                  !k.displayName.includes("-ai/DeepSeek") &&
+                  !k?.provider?.providerName.includes("302.AI"),
               )
               .map((m) => ({
                 title: `${m.displayName}${
