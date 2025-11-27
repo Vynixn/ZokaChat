@@ -17,11 +17,10 @@ export function ModelConfigList(props: {
     allModels.filter(
       (m) =>
         m.available &&
-        ((m.displayName.includes("deepseek") &&
-          !m.displayName.includes("-ai/DeepSeek") &&
-          !m?.provider?.providerName.includes("302.AI")) ||
-          (m.displayName.includes("gpt-5") &&
-            m?.provider?.providerName.includes("OpenAI"))),
+        (m.displayName == "gpt-5" ||
+          m.displayName == "gpt-5-mini" ||
+          m.displayName == "gpt-5-nano") &&
+        m?.provider?.providerName.includes("OpenAI"),
     ),
     "provider.providerName",
   );

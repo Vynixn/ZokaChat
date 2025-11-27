@@ -528,11 +528,10 @@ export function ChatActions(props: {
     const filteredModels = allModels.filter(
       (m) =>
         m.available &&
-        ((m.displayName.includes("deepseek") &&
-          !m.displayName.includes("-ai/DeepSeek") &&
-          !m?.provider?.providerName.includes("302.AI")) ||
-          (m.displayName.includes("gpt-5") &&
-            m?.provider?.providerName.includes("OpenAI"))),
+        (m.displayName == "gpt-5" ||
+          m.displayName == "gpt-5-mini" ||
+          m.displayName == "gpt-5-nano") &&
+        m?.provider?.providerName.includes("OpenAI"),
     );
     const defaultModel = filteredModels.find((m) => m.isDefault);
 
@@ -615,7 +614,7 @@ export function ChatActions(props: {
             icon={<BottomIcon />}
           />
         )}
-{/*        {props.hitBottom && (
+        {/*        {props.hitBottom && (
           <ChatAction
             onClick={props.showPromptModal}
             text={Locale.Chat.InputActions.Settings}
