@@ -528,9 +528,11 @@ export function ChatActions(props: {
     const filteredModels = allModels.filter(
       (m) =>
         m.available &&
-        m.displayName.includes("deepseek") &&
-        !m.displayName.includes("-ai/DeepSeek") &&
-        !m?.provider?.providerName.includes("302.AI"),
+        ((m.displayName.includes("deepseek") &&
+          !m.displayName.includes("-ai/DeepSeek") &&
+          !m?.provider?.providerName.includes("302.AI")) ||
+          (m.displayName.includes("gpt-5") &&
+            m?.provider?.providerName.includes("OpenAI"))),
     );
     const defaultModel = filteredModels.find((m) => m.isDefault);
 
