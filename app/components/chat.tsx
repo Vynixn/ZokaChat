@@ -525,14 +525,19 @@ export function ChatActions(props: {
     session.mask.modelConfig?.providerName || ServiceProvider.OpenAI;
   const allModels = useAllModels();
   const models = useMemo(() => {
-    const filteredModels = allModels.filter(
-      (m) =>
-        m.available &&
-        (m.displayName == "gpt-5" ||
-          m.displayName == "gpt-5-mini" ||
-          m.displayName == "gpt-5-nano") &&
-        m?.provider?.providerName.includes("OpenAI"),
-    );
+    const filteredModels = allModels
+      .filter(
+        (m) =>
+          m.available &&
+          (((m.displayName == "gpt-5" ||
+            m.displayName == "gpt-5-mini" ||
+            m.displayName == "gpt-5-nano") &&
+            m?.provider?.providerName.includes("OpenAI")) ||
+            (m.displayName.includes("deepseek") &&
+              !m.displayName.includes("-ai/DeepSeek") &&
+              !m?.provider?.providerName.includes("302.AI"))),
+      )
+      .reverse();
     const defaultModel = filteredModels.find((m) => m.isDefault);
 
     if (defaultModel) {

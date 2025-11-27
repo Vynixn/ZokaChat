@@ -14,14 +14,19 @@ export function ModelConfigList(props: {
 }) {
   const allModels = useAllModels();
   const groupModels = groupBy(
-    allModels.filter(
-      (m) =>
-        m.available &&
-        (m.displayName == "gpt-5" ||
-          m.displayName == "gpt-5-mini" ||
-          m.displayName == "gpt-5-nano") &&
-        m?.provider?.providerName.includes("OpenAI"),
-    ),
+    allModels
+      .filter(
+        (m) =>
+          m.available &&
+          (((m.displayName == "gpt-5" ||
+            m.displayName == "gpt-5-mini" ||
+            m.displayName == "gpt-5-nano") &&
+            m?.provider?.providerName.includes("OpenAI")) ||
+            (m.displayName.includes("deepseek") &&
+              !m.displayName.includes("-ai/DeepSeek") &&
+              !m?.provider?.providerName.includes("302.AI"))),
+      )
+      .reverse(),
     "provider.providerName",
   );
   const value = `${props.modelConfig.model}@${props.modelConfig?.providerName}`;
